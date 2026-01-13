@@ -11,12 +11,12 @@ import {
 
 function Sidebar({ isOpen }) {
   return (
-  <aside
+    <aside
       className={`fixed top-16 left-0 h-full bg-white border-r z-40
       transition-transform duration-300
       ${isOpen ? "translate-x-0" : "-translate-x-full"}
       md:translate-x-0
-      ${isOpen ? "md:w-60" : "md:w-15"}
+      ${isOpen ? "md:w-65" : "md:w-15"}
       w-60`}
     >
       <ul className="py-4 space-y-2 text-sm">
