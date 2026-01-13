@@ -5,7 +5,7 @@ import App from './App.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from "./components/Login.jsx"
 import Register from "./components/Register.jsx"
-
+import './index.css'
 
 const appRouter = createBrowserRouter([
   {
