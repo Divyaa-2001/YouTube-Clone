@@ -41,3 +41,10 @@ export const filterVideos = async (req, res) => {
     res.status(500).json({ message: "Filter error" });
   }
 };
+
+
+export const getUserVideos = async (req, res) => {
+  const videos = await Video.find({ channelName: req.params.username });
+  res.json(videos);
+};
+
