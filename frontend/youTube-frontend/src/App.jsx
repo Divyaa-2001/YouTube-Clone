@@ -22,10 +22,16 @@ function App() {
           onClick={() => setIsOpen(false)}
         />
       )}
-
+{/* 
       <main className="pt-16 md:ml-60 px-4">
         <Outlet />
-      </main>
+      </main> */}
+        <main
+    className={`pt-16 px-6 transition-all duration-300
+    ${isOpen ? "md:ml-60" : "md:ml-20"}`}
+  >
+    <Outlet />
+  </main>
     </>
   );
 }
