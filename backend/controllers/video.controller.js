@@ -47,4 +47,30 @@ export const getUserVideos = async (req, res) => {
   const videos = await Video.find({ channelName: req.params.username });
   res.json(videos);
 };
+export const deleteVideo = async (req, res) => {
+  await Video.findByIdAndDelete(req.params.id);
+  res.json({ message: "Video deleted" });
+};
 
+export const updateVideo = async (req, res) => {
+  const updated = await Video.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+  res.json(updated);
+};
+
+export const likeVideo = async (req, res) => {
+  const video = await Video.findById(req.params.id);
+  video.likes += 1;
+  await video.save();
+  res.json(video);
+};
+
+export const dislikeVideo = async (req, res) => {
+  const video = await Video.findById(req.params.id);
+  video.dislikes += 1;
+  await video.save();
+  res.json(video);
+};
