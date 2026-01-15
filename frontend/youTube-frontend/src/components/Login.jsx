@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+
+  // 👇 Get setUser from App
+  const { setUser } = useOutletContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +21,8 @@ export default function Login() {
         if (data.token) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
+
+          setUser(data.user);   // 👈 instant header update
           navigate("/");
         } else {
           alert("Login failed");
@@ -27,50 +32,49 @@ export default function Login() {
   };
 
   return (
-   <div className="min-h-screen flex items-center justify-center bg-gray-100">
-  <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-    
-    <h2 className="text-2xl font-bold text-center mb-6">
-      Sign In
-    </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
 
-    <form onSubmit={handleSubmit} className="space-y-4">
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Sign In
+        </h2>
 
-      <input
-        type="email"
-        placeholder="Email"
-        onChange={e => setForm({ ...form, email: e.target.value })}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-      />
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={e => setForm({ ...form, password: e.target.value })}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-      />
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={e => setForm({ ...form, email: e.target.value })}
+            className="w-full px-4 py-2 border rounded-md"
+          />
 
-      <button
-        type="submit"
-        className="w-full bg-red-600 text-white py-2 rounded-md font-semibold hover:bg-red-700 transition"
-      >
-        Login
-      </button>
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={e => setForm({ ...form, password: e.target.value })}
+            className="w-full px-4 py-2 border rounded-md"
+          />
 
-    </form>
+          <button
+            type="submit"
+            className="w-full bg-red-600 text-white py-2 rounded-md"
+          >
+            Login
+          </button>
 
-    <p className="text-center text-sm mt-4">
-      Don’t have an account?{" "}
-      <span
-        className="text-red-600 cursor-pointer font-medium"
-        onClick={() => navigate("/register")}
-      >
-        Register
-      </span>
-    </p>
+        </form>
 
-  </div>
-</div>
+        <p className="text-center text-sm mt-4">
+          Don’t have an account?{" "}
+          <span
+            className="text-red-600 cursor-pointer font-medium"
+            onClick={() => navigate("/register")}
+          >
+            Register
+          </span>
+        </p>
 
+      </div>
+    </div>
   );
 }
