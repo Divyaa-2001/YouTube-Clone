@@ -61,16 +61,40 @@ export const updateVideo = async (req, res) => {
   res.json(updated);
 };
 
-export const likeVideo = async (req, res) => {
+    export const likeVideo = async (req, res) => {
+      const { user } = req.body;
+
+      const video = await Video.findById(req.params.id);
+
+      if (video.likes.includes(user)) {
+        video.likes = video.likes.filter(u => u !== user);
+      } else {
+        video.likes.push(user);
+        video.dislikes = video.dislikes.filter(u => u !== user);
+      }
+
+      await video.save();
+      res.json(video);
+    };
+
+
+export const dislikeVideo = async (req, res) => {
+  const { user } = req.body;
   const video = await Video.findById(req.params.id);
-  video.likes += 1;
+
+  if (!video) return res.status(404).json({ message: "Not found" });
+
+  video.likes = video.likes.filter(u => u !== user);
+
+  if (video.dislikes.includes(user)) {
+    video.dislikes = video.dislikes.filter(u => u !== user);
+  } else {
+    video.dislikes.push(user);
+  }
+
   await video.save();
   res.json(video);
 };
 
-export const dislikeVideo = async (req, res) => {
-  const video = await Video.findById(req.params.id);
-  video.dislikes += 1;
-  await video.save();
-  res.json(video);
-};
+
+
