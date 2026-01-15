@@ -2,11 +2,17 @@ import express from 'express'
 import mongoose from 'mongoose';
 import userRoutes from "./routes/user.routes.js";
 import cors from "cors";
+import videoRoutes from "./routes/video.routes.js";
+import commentRoutes from "./routes/comment.routes.js";
+import channelRoutes from "./routes/channel.routes.js";
 
 const app = express()
 app.use(cors());
 app.use(express.json());
 app.use("/", userRoutes);
+app.use("/", videoRoutes);
+app.use("/comments", commentRoutes);
+app.use("/channels", channelRoutes);
 
 mongoose.connect('mongodb+srv://erdivyacs_db_user:KuykhpEHQYL2dpd7@cluster0.nqylduh.mongodb.net/YouTube-Clone')
     .then(() => {
