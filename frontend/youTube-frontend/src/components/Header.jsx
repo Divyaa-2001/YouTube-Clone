@@ -1,7 +1,7 @@
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function Header({ toggleSidebar, user, setUser, setVideos }) {
   const [search, setSearch] = useState("");
@@ -14,10 +14,9 @@ function Header({ toggleSidebar, user, setUser, setVideos }) {
       .catch(err => console.log(err));
   };
 
-  // Search videos
   const handleSearch = () => {
     if (!search.trim()) {
-      fetchAllVideos();   
+      fetchAllVideos();
       return;
     }
 
@@ -25,33 +24,36 @@ function Header({ toggleSidebar, user, setUser, setVideos }) {
       .then(res => res.json())
       .then(data => {
         setVideos(data);
-        navigate("/");   
+        navigate("/");
       })
       .catch(err => console.log(err));
   };
 
-useEffect(() => {
-  if (!search.trim()) {
-    fetchAllVideos();
-    return;
-  }
+  // Auto search while typing (debounced)
+  useEffect(() => {
+    if (!search.trim()) {
+      fetchAllVideos();
+      return;
+    }
 
-  const delay = setTimeout(() => {
-    fetch(`http://localhost:8000/videos/search/${search}`)
-      .then(res => res.json())
-      .then(data => {
-        setVideos(data);
-        navigate("/");
-      })
-      .catch(err => console.log(err));
-  }, 400); 
+    const delay = setTimeout(() => {
+      fetch(`http://localhost:8000/videos/search/${search}`)
+        .then(res => res.json())
+        .then(data => {
+          setVideos(data);
+          navigate("/");
+        })
+        .catch(err => console.log(err));
+    }, 400);
 
-  return () => clearTimeout(delay);
-}, [search]);
+    return () => clearTimeout(delay);
+  }, [search]);
+
   return (
-    <header className="w-full h-16 fixed flex items-center justify-between px-4 bg-white z-50">
+    <header className="w-full h-16 fixed top-0 flex items-center justify-between px-2 sm:px-4 bg-white z-50">
 
-      <div className="flex items-center gap-4">
+      {/* Left */}
+      <div className="flex items-center gap-2 sm:gap-4">
         <button onClick={toggleSidebar} className="text-2xl">
           <IoReorderThreeOutline />
         </button>
@@ -66,20 +68,21 @@ useEffect(() => {
         >
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
-            className="h-6"
+            className="h-5 sm:h-6"
           />
-          <span className="text-xs text-gray-500">IN</span>
+          <span className="text-xs text-gray-500 hidden sm:block">IN</span>
         </div>
       </div>
 
-      <div className="flex items-center w-[45%] relative">
+      {/* Search Bar */}
+      <div className="flex items-center w-[55%] sm:w-[45%] md:w-[40%] relative">
 
         <input
           type="text"
           placeholder="Search"
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-l-full outline-none"
+          className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-l-full outline-none text-sm sm:text-base"
         />
 
         {search && (
@@ -88,7 +91,7 @@ useEffect(() => {
               setSearch("");
               fetchAllVideos();
             }}
-            className="absolute right-12 text-gray-500"
+            className="absolute right-12 text-gray-500 text-sm"
           >
             ✕
           </button>
@@ -96,18 +99,19 @@ useEffect(() => {
 
         <button
           onClick={handleSearch}
-          className="p-[12px] border bg-gray-100 rounded-r-full"
+          className="p-[10px] sm:p-[12px] border bg-gray-100 rounded-r-full"
         >
           <FaSearch />
         </button>
       </div>
 
       {/* Right */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
         {user ? (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
 
-            <Link to="/channel">
+            {/* Hide text on mobile */}
+            <Link to="/channel" className="hidden sm:block">
               <button className="border px-3 py-1 rounded">
                 My Channel
               </button>
@@ -121,7 +125,7 @@ useEffect(() => {
                 navigate("/");
                 fetchAllVideos();
               }}
-              className="border px-3 py-1 rounded text-red-500"
+              className="border px-2 sm:px-3 py-1 rounded text-red-500 text-sm"
             >
               Logout
             </button>
@@ -130,11 +134,15 @@ useEffect(() => {
               {user.username[0].toUpperCase()}
             </div>
 
-            <span>{user.username}</span>
+            <span className="hidden md:block text-sm">
+              {user.username}
+            </span>
           </div>
         ) : (
           <Link to="/login">
-            <button className="border px-4 py-1 rounded">Sign In</button>
+            <button className="border px-3 py-1 rounded text-sm">
+              Sign In
+            </button>
           </Link>
         )}
       </div>
