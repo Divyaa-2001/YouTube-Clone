@@ -6,13 +6,11 @@ const videoSchema = new mongoose.Schema({
   videoUrl: String,
   thumbnailUrl: String,
   channelName: String,
-  views: { type: Number, default: 0 },
-  likes: { type: Number, default: 0 },
-  dislikes: { type: Number, default: 0 },
+  views: Number,
   category: String,
-  uploadDate: { type: Date, default: Date.now },
-    likes: { type: Number, default: 0 },
-  dislikes: { type: Number, default: 0 }
-});
+likes: { type: [String], default: [] },
+dislikes: { type: [String], default: [] },
+}, { timestamps: true });
+
 
 export default mongoose.model("Video", videoSchema);
