@@ -8,11 +8,13 @@ import {
   FaMusic,
   FaShoppingBag
 } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+
 
 function Sidebar({ isOpen }) {
   return (
     <aside
-      className={`fixed top-16 left-0 h-full bg-white border-r z-40
+      className={`fixed top-16 left-0 h-full bg-white z-40
       transition-transform duration-300
       ${isOpen ? "translate-x-0" : "-translate-x-full"}
       md:translate-x-0
@@ -22,10 +24,12 @@ function Sidebar({ isOpen }) {
       <ul className="py-4 space-y-2 text-sm">
 
         {/* Home / Shorts */}
-        <SidebarItem icon={<FaHome />} text="Home" isOpen={isOpen} active />
+        <NavLink to="/" className="w-full">
+          <SidebarItem icon={<FaHome />} text="Home" isOpen={isOpen} />
+        </NavLink>
         <SidebarItem icon={<FaFire />} text="Shorts" isOpen={isOpen} />
 
-        <hr />
+      <hr class="border-gray-400" />
 
         {/* Subscriptions */}
         {isOpen && (
@@ -34,7 +38,7 @@ function Sidebar({ isOpen }) {
         <SidebarItem icon={<FaYoutube />} text="Lakshmivenkat69" isOpen={isOpen} />
         <SidebarItem icon={<FaYoutube />} text="Code Camp Tamil" isOpen={isOpen} />
 
-        <hr />
+        <hr class="border-gray-400" />
 
         {/* You */}
         {isOpen && <p className="px-4 text-gray-500 font-semibold">You</p>}
@@ -42,7 +46,7 @@ function Sidebar({ isOpen }) {
         <SidebarItem icon={<FaClock />} text="Watch later" isOpen={isOpen} />
         <SidebarItem icon={<FaThumbsUp />} text="Liked videos" isOpen={isOpen} />
 
-        <hr />
+        <hr class="border-gray-400" />
 
         {/* Explore */}
         {isOpen && <p className="px-4 text-gray-500 font-semibold">Explore</p>}
