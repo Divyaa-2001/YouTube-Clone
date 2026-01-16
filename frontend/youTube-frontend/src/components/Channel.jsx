@@ -65,7 +65,11 @@ function Channel() {
     <div className="max-w-full px-4 sm:px-6 py-6">
 
       {/* Banner */}
-      <div className="h-32 sm:h-40 bg-gray-300 rounded-lg mb-6"></div>
+        <img
+        src="https://images.unsplash.com/photo-1522199710521-72d69614c702"
+        alt="Channel Banner"
+        className="h-32 sm:h-40 w-full object-cover rounded-lg mb-6"
+      />
 
       {/* Channel Header */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 mb-6">
