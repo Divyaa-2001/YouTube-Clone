@@ -72,25 +72,25 @@ function Channel() {
 
         {/* Profile Logo */}
         <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto sm:mx-0">
-          {videos[0].channelName[0].toUpperCase()}
+          {channel?.channelName || user.username[0].toUpperCase()}
         </div>
 
         {/* Channel Info */}
         <div className="flex-1 text-center sm:text-left">
           <h2 className="text-xl sm:text-2xl font-bold">
-            {videos[0].channelName}
+            {channel?.channelName || user.username}
           </h2>
 
           <p className="text-gray-600 text-sm">
-            @{videos[0].channelName.toLowerCase()} • {videos.length} videos
+            @{channel?.channelName || user.username.toLowerCase()} • {videos.length} videos
           </p>
 
           <p className="text-gray-500 text-sm mt-1">
-            Welcome to the official YouTube channel of {videos[0].channelName}
+            Welcome to the official YouTube channel of {channel?.channelName || user.username}
           </p>
 
           <p className="text-blue-600 text-sm mt-1 cursor-pointer">
-            {videos[0].channelName}.com and 5 more links
+            {channel?.channelName || user.username}.com and 5 more links
           </p>
         </div>
 
