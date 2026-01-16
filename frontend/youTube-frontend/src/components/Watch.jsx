@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
 
 function Watch() {
   const { id } = useParams();
@@ -235,12 +237,12 @@ function Watch() {
 
                   {user && (
                     <div className="flex gap-4 mt-1 text-sm">
-                      <button onClick={() => handleEdit(c)}>Edit</button>
+                      <button className="text-sm" onClick={() => handleEdit(c)}><FaRegEdit /></button>
                       <button
                         onClick={() => handleDelete(c._id)}
-                        className="text-red-500"
+                        className="text-red-500 text-lg"
                       >
-                        Delete
+                        <MdDeleteOutline />
                       </button>
                     </div>
                   )}
