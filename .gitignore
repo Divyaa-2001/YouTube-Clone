@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 *.mp4
+*.mov
+*.avi
 
 # Editor directories and files
 .vscode/*
