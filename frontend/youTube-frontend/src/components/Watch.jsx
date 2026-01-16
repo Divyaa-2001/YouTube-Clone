@@ -201,53 +201,68 @@ function Watch() {
             </h3>
 
             {comments.map(c => (
-              <div key={c._id} className="flex gap-3 mb-5">
-                <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
-                  {c.user?.[0]?.toUpperCase()}
-                </div>
+              <div key={c._id} className="flex gap-3 mb-5 items-start">
 
-                <div className="flex-1">
-                  <p className="font-semibold">@{c.user}</p>
+  {/* Avatar */}
+  <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+    {c.user?.[0]?.toUpperCase()}
+  </div>
 
-                  {editingId === c._id ? (
-                    <>
-                      <input
-                        value={editText}
-                        onChange={e => setEditText(e.target.value)}
-                        className="border p-2 w-full mt-1 rounded"
-                      />
-                      <div className="flex gap-3 mt-2 text-sm">
-                        <button
-                          onClick={() => saveEdit(c._id)}
-                          className="text-blue-600"
-                        >
-                          Save
-                        </button>
-                        <button
-                          onClick={() => setEditingId(null)}
-                          className="text-gray-500"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <p className="text-gray-700">{c.text}</p>
-                  )}
+  {/* Comment Content */}
+  <div className="flex-1">
 
-                  {user && (
-                    <div className="flex gap-4 mt-1 text-sm">
-                      <button className="text-sm" onClick={() => handleEdit(c)}><FaRegEdit /></button>
-                      <button
-                        onClick={() => handleDelete(c._id)}
-                        className="text-red-500 text-lg"
-                      >
-                        <MdDeleteOutline />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
+    <div className="flex justify-between items-start">
+
+      {/* Username + Text */}
+      <div>
+        <p className="font-semibold">{c.user}</p>
+
+        {editingId === c._id ? (
+          <>
+            <input
+              value={editText}
+              onChange={e => setEditText(e.target.value)}
+              className="border p-2 w-full mt-1 rounded"
+            />
+            <div className="flex gap-3 mt-2 text-sm">
+              <button
+                onClick={() => saveEdit(c._id)}
+                className="text-blue-600"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setEditingId(null)}
+                className="text-gray-500"
+              >
+                Cancel
+              </button>
+            </div>
+          </>
+        ) : (
+          <p className="text-gray-700">{c.text}</p>
+        )}
+      </div>
+
+      {/* Edit / Delete Icons (Right Side) */}
+      {user && (
+        <div className="flex gap-3 text-lg mt-1">
+          <button onClick={() => handleEdit(c)} className="text-gray-600 hover:text-black">
+            <FaRegEdit />
+          </button>
+          <button
+            onClick={() => handleDelete(c._id)}
+            className="text-red-500 hover:text-red-700"
+          >
+            <MdDeleteOutline />
+          </button>
+        </div>
+      )}
+
+    </div>
+  </div>
+</div>
+
             ))}
           </div>
         </div>
